@@ -1,0 +1,19 @@
+from django.db import models
+from django.contrib.auth.models import AbstractUser, BaseUserManager
+
+# Create your models here.
+
+class User(AbstractUser):
+    ROLE_CHOICES = (
+        ('admin', 'Admin'),
+        ('waiter', 'Waiter'),
+        ('cook', 'Cook'),
+    )
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='waiter')
+    email = models.EmailField(unique=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name' ,'password']
+
+    def __str__(self):
+        return f"{self.email} ({self.role})"
