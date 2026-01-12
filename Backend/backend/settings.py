@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_spectacular',
     'corsheaders',
-    'users'
+    'users',
+    'restaurant'
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -48,7 +50,14 @@ AUTH_USER_MODEL = 'users.User'
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-    )
+    ),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Orders System API",
+    "DESCRIPTION": "API docs",
+    "VERSION": "1.0.0"
 }
 
 SIMPLE_JWT = {

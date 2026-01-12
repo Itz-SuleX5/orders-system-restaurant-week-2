@@ -1,7 +1,24 @@
 import { LogOut, Utensils } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
+import { useLogin } from '../../hooks/useLogin';
 
 const Login = () => {
+    const { login, loading, success, error } = useLogin();
+    const [form, setForm] = useState({
+            email : '',
+            password: ''
+        })
+    
+    const handleSubmit = async (e:any) => {
+        e.preventDefault();
+        await login(form)
+    }
+
+    const handleChange = (e:any) => {
+        const { name, value } = e.target;
+        setForm(prev => ({ ...prev, [name]: value }));
+    }
+
     return (
         <div className='flex min-h-screen flex-col py-6 px-6'>
             <div className='flex justify-between'>
@@ -19,19 +36,19 @@ const Login = () => {
                     <h1 className='font-bold text-2xl'>Bienvenido de nuevo</h1>
                     <h2 className='text-slate-600'>Iniciar sesión para gestionar restaurante</h2>
                 </div>
-                <div className='flex flex-col self-center gap-4 w-8/12'>
+                <form onSubmit={handleSubmit} className='flex flex-col self-center gap-4 w-8/12'>
                     <div> 
                         <h1 className='text-start font-medium'>Correo electrónico</h1>
-                        <input type="email" className='border border-gray-300 py-2 indent-2 w-full rounded-sm' placeholder='ejemplo@email.com'/>
+                        <input name='email' type="email" className='border border-gray-300 py-2 indent-2 w-full rounded-sm' placeholder='ejemplo@email.com' onChange={handleChange}/>
                     </div>
                     <div> 
                         <h1 className='text-start font-medium'>Contraseña</h1>
-                        <input type="password" className='border border-gray-300 py-2 indent-2 w-full rounded-sm' placeholder='••••••••'/>
+                        <input name='password' type="password" className='border border-gray-300 py-2 indent-2 w-full rounded-sm' placeholder='••••••••' onChange={handleChange}/>
                     </div>
-                    <button className='flex justify-center gap-2 bg-cyan-700 text-white py-2 rounded-md cursor-pointer'>Iniciar Sesión <LogOut /></button>
+                    <button type="submit" className='flex justify-center gap-2 bg-cyan-700 text-white py-2 rounded-md cursor-pointer'>Iniciar Sesión <LogOut /></button>
                     <a href="#" className='text-cyan-700'>¿Olvidaste tu contraseña?</a>
                     <h1 className='text-gray-500'>¿No tienes una cuenta? <a href="/signUp" className='text-cyan-700'>Registrate</a></h1>
-                </div>
+                </form>
             </div>
         </div>
     );
