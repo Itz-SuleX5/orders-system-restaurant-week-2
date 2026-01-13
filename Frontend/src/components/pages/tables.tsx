@@ -2,9 +2,11 @@ import React from 'react';
 import SectionsList from '../organisms/sectionsList';
 import { CheckCheck, Plus, ShoppingCart, Users, Utensils } from 'lucide-react';
 import { useGetTables } from '../../hooks/useGetTables';
+import { useGetTablesStats } from '../../hooks/useGetTablesStats';
 
 const TablesPage = () => {
     const { tables, success, loading, error } = useGetTables();
+    const { tablesStats, success:successStats, loading:loadingStats, error:errorStats } = useGetTablesStats();
     console.log(tables)
     return (
         <div className='p-4 w-full flex gap-4'>
@@ -21,21 +23,21 @@ const TablesPage = () => {
                     <div className='flex items-center border-2 justify-between p-4'>
                         <div className='flex flex-col text-start'>
                             <h1 className='text-slate-400'>Total Mesas</h1>
-                            <h2 className='text-4xl font-medium'>24</h2>
+                            <h2 className='text-4xl font-medium'>{tablesStats.total}</h2>
                         </div>
                         <Utensils className='text-blue-600'/>
                     </div>
                     <div className='flex items-center border-2 justify-between p-4'>
                         <div className='flex flex-col text-start'>
                             <h1 className='text-slate-400'>Ocupación</h1>
-                            <h2 className='text-4xl font-medium'>65%</h2>
+                            <h2 className='text-4xl font-medium'>{tablesStats.occupied_percent}%</h2>
                         </div>
                         <Users className="text-orange-600" />
                     </div>
                     <div className='flex items-center border-2 justify-between p-4'>
                         <div className='flex flex-col text-start'>
                             <h1 className='text-slate-400'>Disponibles</h1>
-                            <h2 className='text-4xl font-medium'>8</h2>
+                            <h2 className='text-4xl font-medium'>{tablesStats.available}</h2>
                         </div>
                         <CheckCheck className='text-green-500' />
                     </div>
