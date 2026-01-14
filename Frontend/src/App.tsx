@@ -9,6 +9,7 @@ import Login from './components/pages/login'
 import SignUp from './components/pages/signUp'
 import Admin from './components/pages/admin'
 import TablesPage from './components/pages/tables'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,8 +19,8 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login/>}/>
       <Route path="/signUp" element={<SignUp/>}/>
-      <Route path="/admin" element={<Admin/>}/>
-      <Route path="/admin/tables" element={<TablesPage/>}/>
+      <Route path="/admin" element={<ProtectedRoute><Admin/></ProtectedRoute>}/>
+      <Route path="/admin/tables" element={<ProtectedRoute><TablesPage/></ProtectedRoute>}/>
     </Routes>
     </BrowserRouter>
   )
