@@ -30,10 +30,10 @@ export function useGetAccessToken() {
 
     useEffect(() => {
         const id = setInterval(() => {
-            if (localStorage.getItem('access')) {
+            if (localStorage.getItem('refresh')) {
                 void getAccessToken();
             }
-        }, 15 * 60 * 1000);
+        }, 1 * 6 * 1000);
         return () => clearInterval(id);
     }, [])
 

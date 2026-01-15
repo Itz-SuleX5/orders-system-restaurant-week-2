@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SectionsList from '../organisms/sectionsList';
 import { CheckCheck, Plus, ShoppingCart, Users, Utensils } from 'lucide-react';
 import { useGetTables } from '../../hooks/useGetTables';
@@ -6,9 +6,14 @@ import { useGetTablesStats } from '../../hooks/useGetTablesStats';
 import CreateTable from '../organisms/createTable';
 
 const TablesPage = () => {
-    const { tables, success, loading, error } = useGetTables();
-    const { tablesStats, success:successStats, loading:loadingStats, error:errorStats } = useGetTablesStats();
-    const [showCreateForm, setShowCreateForm] = useState(true)
+    const { tables, getTables, success, loading, error } = useGetTables();
+    const { tablesStats, getTablesStats, success:successStats, loading:loadingStats, error:errorStats } = useGetTablesStats();
+    const [showCreateForm, setShowCreateForm] = useState(false)
+
+    useEffect(() => {
+        getTables();
+        getTablesStats();
+    }, [showCreateForm])
     return (
         <div className='w-full flex bg-slate-100'>
             
@@ -19,7 +24,7 @@ const TablesPage = () => {
                         <h1 className='text-3xl font-bold'>Gestión de Mesas</h1>
                         <h2 className='text-slate-600 text-xl'>Supervisa y Gestiona la disponibilidad de las mesas en tiempo real.</h2>
                     </div>
-                    <button className='text-white bg-cyan-700 flex items-center px-5 h-12 rounded-xl ms-auto gap-2 text-sm'> <div className='flex bg-white text-cyan-700 rounded-full w-5 h-5 items-center justify-center'><Plus size={16}/></div> Añadir Mesa</button>
+                    <button onClick={() => setShowCreateForm(true)} className='text-white bg-cyan-700 flex items-center px-5 h-12 rounded-xl ms-auto gap-2 text-sm'> <div className='flex bg-white text-cyan-700 rounded-full w-5 h-5 items-center justify-center'><Plus size={16}/></div> Añadir Mesa</button>
                 </div>
                 <div className='grid grid-cols-3 gap-4 bg-neutral-100 p-3'>
                     <div className='flex items-center border-2 justify-between p-4 rounded-xl bg-white'>
@@ -66,8 +71,8 @@ const TablesPage = () => {
             </div>
 
             {showCreateForm && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-                    <CreateTable/>
+                <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50" onClick={() => setShowCreateForm(false)}>
+                    <CreateTable setShowCreateForm={setShowCreateForm}/>
                 </div>
             )}
         </div>
