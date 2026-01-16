@@ -5,7 +5,7 @@ const SectionsList = () => {
     const name = `${localStorage.getItem('first_name')} ${localStorage.getItem('last_name')}`;
     const role = localStorage.getItem('role');
     return (
-        <div className='w-3/12 min-h-screen p-4 flex flex-col gap-18 bg-white border-r border-slate-300'>
+        <div className='w-3/12 sticky top-0 max-h-screen p-4 flex flex-col gap-18 bg-white border-r border-slate-300'>
             <div className='flex items-center gap-4 ms-2'>
                 <div className='bg-cyan-700 text-white rounded-md h-10 w-10 flex items-center justify-center'>
                     <Utensils />

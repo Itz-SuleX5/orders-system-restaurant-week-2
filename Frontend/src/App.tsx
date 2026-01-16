@@ -10,6 +10,7 @@ import SignUp from './components/pages/signUp'
 import Admin from './components/pages/admin'
 import TablesPage from './components/pages/tables'
 import ProtectedRoute from './components/ProtectedRoute'
+import NewOrder from './components/pages/newOrder'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,6 +22,7 @@ function App() {
       <Route path="/signUp" element={<SignUp/>}/>
       <Route path="/admin" element={<ProtectedRoute><Admin/></ProtectedRoute>}/>
       <Route path="/admin/tables" element={<ProtectedRoute><TablesPage/></ProtectedRoute>}/>
+      <Route path="/admin/newOrder" element={<ProtectedRoute><NewOrder/></ProtectedRoute>}/>
     </Routes>
     </BrowserRouter>
   )

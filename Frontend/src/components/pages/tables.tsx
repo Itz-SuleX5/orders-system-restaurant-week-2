@@ -14,6 +14,20 @@ const TablesPage = () => {
         getTables();
         getTablesStats();
     }, [showCreateForm])
+
+    const STATUS_LABELS: Record<string,string> = { 
+        FREE: 'Libre', 
+        BUSY: 'Ocupada', 
+        RSVD: 'Reservada', 
+        CLN: 'Limpieza' 
+    };
+
+    const STATUS_STYLES: Record<string,string> = {
+        FREE: 'text-green-700',
+        BUSY: 'text-orange-700',
+        RSVD: 'text-yellow-700',
+        CLN:  'text-slate-700',
+    };
     return (
         <div className='w-full flex bg-slate-100'>
             
@@ -58,7 +72,7 @@ const TablesPage = () => {
                 <div className='grid grid-cols-4 gap-4 p-3'>
                     {tables.map((table: any) => (
                         <div className='relative border-2 flex flex-col p-4 items-start gap-4 rounded-xl bg-white'>
-                        <div className='absolute right-2 bg-red-500'>{table.status}</div>
+                        <div className={`absolute right-2 ${STATUS_STYLES[table.status]} `}>{STATUS_LABELS[table.status]}</div>
                         <div className='bg-slate-50 p-3 rounded-md'>
                             <h1 className='text-3xl font-medium'>{table.number}</h1>
                         </div>
