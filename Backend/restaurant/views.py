@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from restaurant.models import Table
+from restaurant.models import Table, Category, Dish
 from restaurant.permissions import IsAdminOrStatusUpdater
-from restaurant.serializers import TableSerializer
+from restaurant.serializers import TableSerializer, CategorySerializer, DishSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -32,3 +32,23 @@ class TableStatsView(APIView):
             "available": available,
             "occupied_percent": ocuppied_percent
         })
+    
+class CategoryListCreateView(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAdminOrStatusUpdater]
+
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAdminOrStatusUpdater]
+
+class DishListCrateView(generics.ListCreateAPIView):
+    queryset = Dish.objects.all()
+    serializer_class = DishSerializer
+    permission_classes = [IsAdminOrStatusUpdater]
+
+class DishDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Dish.objects.all()
+    serializer_class = DishSerializer
+    permission_classes = [IsAdminOrStatusUpdater]

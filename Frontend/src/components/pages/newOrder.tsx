@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SectionsList from '../organisms/sectionsList';
-import { ShoppingBag, Utensils } from 'lucide-react';
+import { Plus, Send, ShoppingBag, Utensils } from 'lucide-react';
+import CreateDish from '../organisms/createDish';
 
 const NewOrder = () => {
+
+    const [showCreateForm, setShowCreateForm] = useState(true)
     return (
         <div className='flex w-full'>
             <SectionsList/>
@@ -10,7 +13,11 @@ const NewOrder = () => {
                 <div className='w-8/12 flex flex-col p-3 gap-4'>
                     <div className='flex w-full items-center'>
                         <h1>Nuevo pedido</h1>
-                        <input type="text" placeholder='Buscar plato o bebida' className='bg-gray-200 ml-auto p-2'/>
+                        <div className='flex ml-auto gap-4'>
+                            <button className='bg-cyan-700 text-white p-2 rounded-xl flex gap-2 text-sm items-center cursor-pointer'><div className='bg-white text-cyan-700 rounded-full w-5 h-5'><Plus size={20}/></div>Añadir Platillo</button>
+                            <input type="text" placeholder='Buscar plato o bebida' className='bg-gray-200 p-2'/>
+                        </div>
+                        
                     </div>
                     <div className='flex justify-between'>
                         <button className='bg-cyan-700 text-white rounded-full px-3 py-1'>Todos</button>
@@ -108,7 +115,7 @@ const NewOrder = () => {
                         
                     </div>
                 </div>
-                <div className='w-4/12 p-4 gap-4 flex flex-col'>
+                <div className='w-4/12 p-4 gap-4 flex flex-col sticky top-0 max-h-screen'>
                     <div className='flex justify-between'>
                         <h1 className='text-2xl font-bold'>Nuevo Pedido</h1>
                         <h1 className='text-cyan-700'>Limpiar</h1>
@@ -124,9 +131,31 @@ const NewOrder = () => {
                         <option value="DRINKS">Bebidas</option>
                         <option value="DESSERTS">Postres</option>
                     </select>
+                    <div className='w-full mt-auto'>
+                        <div className='flex justify-between'>
+                            <h2 className='text-gray-500'>Subtotal</h2>
+                            <h1 className='font-medium'>$39.90</h1>
+                        </div>
+                        <div className='flex justify-between'>
+                            <h2 className='text-gray-500'>IVA (10%)</h2>
+                            <h1 className='font-medium'>$3.99</h1>
+                        </div>
+                        <div className='flex justify-between'>
+                            <h1 className='font-bold'>Total</h1>
+                            <h1 className='text-cyan-700 font-black'>$43.89</h1>
+                        </div>
+                        <button className='flex bg-cyan-700 text-white w-full justify-center py-2 rounded-xl gap-2'><Send /> Enviar a cocina</button>
+                    </div>
                 </div>
             </div>
+
+            {showCreateForm && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50" onClick={() => setShowCreateForm(false)}>
+                <CreateDish setShowCreateForm={setShowCreateForm}/>
+            </div>
+        )}
         </div>
+        
         
 
     );
