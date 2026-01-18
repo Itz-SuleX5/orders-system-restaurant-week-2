@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import SectionsList from '../organisms/sectionsList';
 import { Plus, Send, ShoppingBag, Utensils } from 'lucide-react';
 import CreateDish from '../organisms/createDish';
+import { useGetDishes } from '../../hooks/useGetDishes';
 
 const NewOrder = () => {
 
     const [showCreateForm, setShowCreateForm] = useState(true)
+    const { dishes, loading, error, success } = useGetDishes();
     return (
         <div className='flex w-full'>
             <SectionsList/>
@@ -27,90 +29,22 @@ const NewOrder = () => {
                         <button className='bg-gray-200 text-gray-700 rounded-full px-3 py-1'>Postres</button>
                     </div>
                     <div className='grid grid-cols-4 gap-4'>
-                        <div className='bg-gray-100 rounded-3xl overflow-hidden'>
+                        {dishes.map((dish:any) => (
+                            <div className='bg-gray-100 rounded-3xl overflow-hidden'>
                             <div className='relative'>
-                                <img src="https://placehold.co/600x600" alt="" className='w-full h-auto object-cover' />
+                                <img src={dish.image} alt="" className='w-full h-auto object-cover' />
                                 <div className='absolute top-2 right-2 bg-white/80 text-cyan-700 px-2 py-1 rounded-md text-sm font-semibold shadow'>
-                                    $20
+                                    ${dish.price}
                                 </div>
                             </div>
                             <div className='p-2 text-start'>
-                                <h1 className='font-bold ms-2'>Burguer Gourmet</h1>
-                                <h2 className='text-gray-500 text-start ms-2'>Carne Angus, queso...</h2>
+                                <h1 className='font-bold ms-2'>{dish.name}</h1>
+                                <h2 className='text-gray-500 text-start ms-2'>{dish.description}</h2>
                             </div>
                         </div>
-                        <div className='bg-gray-100 rounded-3xl overflow-hidden'>
-                            <div className='relative'>
-                                <img src="https://placehold.co/600x600" alt="" className='w-full h-auto object-cover' />
-                                <div className='absolute top-2 right-2 bg-white/80 text-cyan-700 px-2 py-1 rounded-md text-sm font-semibold shadow'>
-                                    $20
-                                </div>
-                            </div>
-                            <div className='p-2 text-start'>
-                                <h1 className='font-bold ms-2'>Burguer Gourmet</h1>
-                                <h2 className='text-gray-500 text-start ms-2'>Carne Angus, queso...</h2>
-                            </div>
-                        </div>
-                        <div className='bg-gray-100 rounded-3xl overflow-hidden'>
-                            <div className='relative'>
-                                <img src="https://placehold.co/600x600" alt="" className='w-full h-auto object-cover' />
-                                <div className='absolute top-2 right-2 bg-white/80 text-cyan-700 px-2 py-1 rounded-md text-sm font-semibold shadow'>
-                                    $20
-                                </div>
-                            </div>
-                            <div className='p-2 text-start'>
-                                <h1 className='font-bold ms-2'>Burguer Gourmet</h1>
-                                <h2 className='text-gray-500 text-start ms-2'>Carne Angus, queso...</h2>
-                            </div>
-                        </div>
-                        <div className='bg-gray-100 rounded-3xl overflow-hidden'>
-                            <div className='relative'>
-                                <img src="https://placehold.co/600x600" alt="" className='w-full h-auto object-cover' />
-                                <div className='absolute top-2 right-2 bg-white/80 text-cyan-700 px-2 py-1 rounded-md text-sm font-semibold shadow'>
-                                    $20
-                                </div>
-                            </div>
-                            <div className='p-2 text-start'>
-                                <h1 className='font-bold ms-2'>Burguer Gourmet</h1>
-                                <h2 className='text-gray-500 text-start ms-2'>Carne Angus, queso...</h2>
-                            </div>
-                        </div>
-                        <div className='bg-gray-100 rounded-3xl overflow-hidden'>
-                            <div className='relative'>
-                                <img src="https://placehold.co/600x600" alt="" className='w-full h-auto object-cover' />
-                                <div className='absolute top-2 right-2 bg-white/80 text-cyan-700 px-2 py-1 rounded-md text-sm font-semibold shadow'>
-                                    $20
-                                </div>
-                            </div>
-                            <div className='p-2 text-start'>
-                                <h1 className='font-bold ms-2'>Burguer Gourmet</h1>
-                                <h2 className='text-gray-500 text-start ms-2'>Carne Angus, queso...</h2>
-                            </div>
-                        </div>
-                        <div className='bg-gray-100 rounded-3xl overflow-hidden'>
-                            <div className='relative'>
-                                <img src="https://placehold.co/600x600" alt="" className='w-full h-auto object-cover' />
-                                <div className='absolute top-2 right-2 bg-white/80 text-cyan-700 px-2 py-1 rounded-md text-sm font-semibold shadow'>
-                                    $20
-                                </div>
-                            </div>
-                            <div className='p-2 text-start'>
-                                <h1 className='font-bold ms-2'>Burguer Gourmet</h1>
-                                <h2 className='text-gray-500 text-start ms-2'>Carne Angus, queso...</h2>
-                            </div>
-                        </div>
-                        <div className='bg-gray-100 rounded-3xl overflow-hidden'>
-                            <div className='relative'>
-                                <img src="https://placehold.co/600x600" alt="" className='w-full h-auto object-cover' />
-                                <div className='absolute top-2 right-2 bg-white/80 text-cyan-700 px-2 py-1 rounded-md text-sm font-semibold shadow'>
-                                    $20
-                                </div>
-                            </div>
-                            <div className='p-2 text-start'>
-                                <h1 className='font-bold ms-2'>Burguer Gourmet</h1>
-                                <h2 className='text-gray-500 text-start ms-2'>Carne Angus, queso...</h2>
-                            </div>
-                        </div>
+                        ))}
+                        
+                        
 
                         
                     </div>
